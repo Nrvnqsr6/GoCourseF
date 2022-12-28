@@ -27,8 +27,6 @@ func MakeRequestForData(task string) ([]byte, error) {
 }
 
 func MakeRequestForResult(body *model.Response) (*model.ResponseSolution, error) {
-	// ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
-	// defer cancel()
 
 	bodyData, err := json.Marshal(body)
 	if err != nil {
@@ -40,17 +38,10 @@ func MakeRequestForResult(body *model.Response) (*model.ResponseSolution, error)
 		return nil, err
 	}
 
-	// req, err := http.NewRequest("POST", consts.SOLUTION, bytes.NewReader(bodyData))
-	// res, err := http.DefaultClient.Do(req)
-
 	bodyData, err = ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//res, err := http.DefaultClient.Do(req)
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	var responseData model.ResponseSolution
 	err = json.Unmarshal(bodyData, &responseData)
